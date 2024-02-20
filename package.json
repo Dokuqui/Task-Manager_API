@@ -2,9 +2,10 @@
   "name": "task-manager_api",
   "version": "1.0.0",
   "description": "TypeScript Task Manager API Project",
-  "main": "index.ts",
+  "main": "app.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon --exec ts-node src/app.ts",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",

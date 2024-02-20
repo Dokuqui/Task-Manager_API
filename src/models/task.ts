@@ -1,8 +1,9 @@
-export interface Task {
-    id: string,
-    title: string,
-    description?: string,
-    dueDate?: Date,
-    category?: string,
-    completed: boolean
+export interface TaskData {
+  title: string
+  description: string
+  dueDate?: Date
+  priority?: string
+  completed?: boolean
+  categoryId?: string
+  userId: string
 }
