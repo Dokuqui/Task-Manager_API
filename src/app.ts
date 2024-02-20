@@ -6,7 +6,7 @@ import userRoutes from './routes/UserRoutes'
 const app = express()
 const PORT = process.env.PORT || 3000
 
-const uri = 'mongodb+srv://isemenov:Krys1234!illia@task-manager-api.ezsex2b.mongodb.net/'
+const uri = 'mongodb+srv://<USERNAME>:<PASSWORD>@task-manager-api.ezsex2b.mongodb.net/'
 
 // Connect to MongoDB
 mongoose
