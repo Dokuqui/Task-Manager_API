@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express'
 import mongoose from 'mongoose'
 import taskRoutes from './routes/TaskRoutes'
 import userRoutes from './routes/UserRoutes'
+import taskCategoryRoutes from './routes/TaskCategoryRoutes'
 
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -18,12 +19,16 @@ mongoose
     console.error('Error connecting to MongoDB:', error)
   })
 
+// Env to retrieve JWT_SECRET
+require('dotenv').config()
+
 // Middleware
 app.use(express.json())
 
 // Routes
-app.use('/api', taskRoutes)
-app.use('/api/user', userRoutes)
+app.use('/task', taskRoutes)
+app.use('/user', userRoutes)
+app.use('/task/category', taskCategoryRoutes)
 
 // Error Handling middleware
 app.use((err: any, req: Request, res: Response, next: Function) => {
