@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import taskRoutes from './routes/TaskRoutes'
 import userRoutes from './routes/UserRoutes'
 import taskCategoryRoutes from './routes/TaskCategoryRoutes'
+import authRoutes from './routes/AuthRoutes'
 
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -28,6 +29,7 @@ app.use(express.json())
 // Routes
 app.use('/task', taskRoutes)
 app.use('/user', userRoutes)
+app.use('/user/auth', authRoutes)
 app.use('/task/category', taskCategoryRoutes)
 
 // Error Handling middleware

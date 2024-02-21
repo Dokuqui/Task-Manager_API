@@ -7,17 +7,23 @@ import {
   deleteTaskCategory,
 } from '../controllers/taskCategoryController'
 import {authenticateJWT} from '../middleware/authMiddleware'
+import { authorize } from '../middleware/roleMiddleware'
 
 const router = express.Router()
 
-router.post('/task-categories', authenticateJWT, createTaskCategory)
+// Route to create task category
+router.post('/task-categories', authenticateJWT, createTaskCategory, authorize('admin' || 'user'))
 
-router.get('/task-categories', authenticateJWT, getAllTaskCategory)
+// Route to get all task categories
+router.get('/task-categories', authenticateJWT, getAllTaskCategory, authorize('admin' || 'user'))
 
-router.get('/task-categories/:id', authenticateJWT, getTaskCategoryById)
+// Route to get task category by ID
+router.get('/task-categories/:id', authenticateJWT, getTaskCategoryById, authorize('admin' || 'user'))
 
-router.put('/task-categories/:id', authenticateJWT, updateTaskCategory)
+// Route to update task category by ID 
+router.put('/task-categories/:id', authenticateJWT, updateTaskCategory, authorize('admin' || 'user'))
 
-router.delete('/task-categories/:id', authenticateJWT, deleteTaskCategory)
+// Route to delete task category by ID
+router.delete('/task-categories/:id', authenticateJWT, deleteTaskCategory, authorize('admin' || 'user'))
 
 export default router

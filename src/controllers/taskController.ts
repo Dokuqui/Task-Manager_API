@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { Task } from '../models/models'
-import { TaskData } from '../models/task'
+import { TaskData } from '../data/task'
 
 export const createTask = async (req: Request, res: Response): Promise<void> => {
   try {
