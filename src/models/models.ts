@@ -23,7 +23,10 @@ interface IUser extends Document {
   username: string
   email: string
   password: string
+  profilePicture?: string
   role: 'admin' | 'user' 
+  resetToken?: string | null
+  resetTokenExpires?: Date | number | null
   createdAt: Date
 }
 
@@ -50,7 +53,10 @@ const userSchema: Schema = new Schema({
   username: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true },
+  profilePicture: { type: String },
   role: { type: String, enum: ['admin', 'user'], default: 'user' },
+  resetToken: { type: String },
+  resetTokenExpires: { type: Date },
   createdAt: { type: Date, default: Date.now },
 })
 

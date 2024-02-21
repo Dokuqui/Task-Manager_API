@@ -4,11 +4,16 @@ import taskRoutes from './routes/TaskRoutes'
 import userRoutes from './routes/UserRoutes'
 import taskCategoryRoutes from './routes/TaskCategoryRoutes'
 import authRoutes from './routes/AuthRoutes'
+import passwordResetRoutes from './routes/passwordResetRoutes'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const app = express()
 const PORT = process.env.PORT || 3000
 
-const uri = 'mongodb+srv://<USERNAME>:<PASSWORD>@task-manager-api.ezsex2b.mongodb.net/'
+const uri = process.env.MONGODB_CONNECTION as string
+console.log('MongoDB URI:', uri)
 
 // Connect to MongoDB
 mongoose
@@ -20,9 +25,6 @@ mongoose
     console.error('Error connecting to MongoDB:', error)
   })
 
-// Env to retrieve JWT_SECRET
-require('dotenv').config()
-
 // Middleware
 app.use(express.json())
 
@@ -30,6 +32,7 @@ app.use(express.json())
 app.use('/task', taskRoutes)
 app.use('/user', userRoutes)
 app.use('/user/auth', authRoutes)
+app.use('/user/auth', passwordResetRoutes)
 app.use('/task/category', taskCategoryRoutes)
 
 // Error Handling middleware

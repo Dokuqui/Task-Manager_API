@@ -4,7 +4,7 @@ interface CustomRequest extends Request {
     user?: any
 }
 
-export const authorize = (requiredRole: string) => {
+export const authorize = (requiredRole: string[]) => {
   return (req: CustomRequest, res: Response, next: NextFunction) => {
     if (req.user && req.user.role === requiredRole) {
       next()
