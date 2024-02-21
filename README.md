@@ -1,5 +1,9 @@
 # Task Manager API Documentation
 
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.3.3-blue)](https://www.typescriptlang.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-20.11.19-green)](https://nodejs.org/)
+[![Test Coverage](https://img.shields.io/badge/Test_Coverage-20%25-green)](URL_TO_COVERAGE_REPORT)
+
 ## Introduction
 
 Welcome to the Task Manager API documentation. This API allows users to manage tasks, users, and other related operations.
