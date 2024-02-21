@@ -1,4 +1,7 @@
 import express, { Request, Response } from 'express'
+import rateLimit from 'express-rate-limit'
+import { validationResult } from 'express-validator'
+import { createUserValidationRules } from './validationRules'
 import mongoose from 'mongoose'
 import taskRoutes from './routes/TaskRoutes'
 import userRoutes from './routes/UserRoutes'
@@ -6,13 +9,15 @@ import taskCategoryRoutes from './routes/TaskCategoryRoutes'
 import authRoutes from './routes/AuthRoutes'
 import passwordResetRoutes from './routes/passwordResetRoutes'
 import dotenv from 'dotenv'
+import logger from './logger'
+import helmet from 'helmet'
 
 dotenv.config()
 
-const app = express()
+export const app = express()
 const PORT = process.env.PORT || 3000
 
-const uri = process.env.MONGODB_CONNECTION as string
+export const uri = process.env.MONGODB_CONNECTION as string
 console.log('MongoDB URI:', uri)
 
 // Connect to MongoDB
@@ -25,6 +30,17 @@ mongoose
     console.error('Error connecting to MongoDB:', error)
   })
 
+// Rate limiting middleware
+const limiter = rateLimit({
+  windowMs: 15*60*1000,
+  max: 100,
+  message: 'Too many request from this IP, try again a little bit later!'
+})
+app.use(limiter)
+
+// Helmet middleware for security headers
+app.use(helmet())
+
 // Middleware
 app.use(express.json())
 
@@ -35,8 +51,20 @@ app.use('/user/auth', authRoutes)
 app.use('/user/auth', passwordResetRoutes)
 app.use('/task/category', taskCategoryRoutes)
 
+// Define route with validation middleware
+app.post('/user/auth', createUserValidationRules, async (req: Request, res: Response) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+})
+
+// Logger usage logic
+logger.info('This is an informational message')
+logger.error('This is an error message')
+
 // Error Handling middleware
-app.use((err: any, req: Request, res: Response, next: Function) => {
+app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
   console.error(err.stack)
   res.status(500).send('Internal Server Error')
 })

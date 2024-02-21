@@ -24,7 +24,7 @@ interface IUser extends Document {
   email: string
   password: string
   profilePicture?: string
-  role: 'admin' | 'user' 
+  role: 'admin' | 'user'
   resetToken?: string | null
   resetTokenExpires?: Date | number | null
   createdAt: Date
