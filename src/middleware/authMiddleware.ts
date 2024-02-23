@@ -7,7 +7,9 @@ export const authenticateJWT = (req: Request, res: Response, next: NextFunction)
     return res.status(401).json({ message: 'Authentication failed: No token provided' })
   }
 
-  const jwtSecret: Secret | undefined = process.env.JWT_SECRET as Secret | undefined
+  (req as any).token = token
+
+  const jwtSecret = process.env.JWT_SECRET
   if (!jwtSecret) {
     return res.status(500).json({ message: 'JWT secret not defined' })
   }

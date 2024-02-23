@@ -20,6 +20,9 @@ const PORT = process.env.PORT || 3000
 export const uri = process.env.MONGODB_CONNECTION as string
 console.log('MongoDB URI:', uri)
 
+export const authSecret = process.env.JWT_SECRET as string
+console.log('JWT token:', authSecret)
+
 // Connect to MongoDB
 mongoose
   .connect(uri)
