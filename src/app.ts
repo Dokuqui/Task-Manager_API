@@ -11,6 +11,7 @@ import passwordResetRoutes from './routes/passwordResetRoutes'
 import dotenv from 'dotenv'
 import logger from './logger'
 import helmet from 'helmet'
+import swaggerRouter from './config/swagger';
 
 dotenv.config()
 
@@ -53,6 +54,7 @@ app.use('/user', userRoutes)
 app.use('/user/auth', authRoutes)
 app.use('/user/auth', passwordResetRoutes)
 app.use('/task/category', taskCategoryRoutes)
+app.use(swaggerRouter)
 
 // Define route with validation middleware
 app.post('/user/auth', createUserValidationRules, async (req: Request, res: Response) => {
